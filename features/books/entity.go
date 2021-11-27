@@ -9,8 +9,8 @@ type Core struct {
 	PublishedAt time.Time      `json:"published_at" form:"published_at"`
 	Like        int            `json:"like" form:"like"`
 	Harga       int            `json:"harga" form:"harga"`
-	Kategori    []KategoriCore `json:"kategori" form:"kategori"`
-	Author      []AuthorCore   `json:"author" form:"author" gorm:"many2many:detail_book;"`
+	Kategoris   []KategoriCore `json:"kategori" form:"kategori"`
+	Authors     []AuthorCore   `json:"author" form:"author" gorm:"many2many:detail_book;"`
 	CreatedAt   time.Time      `json:"created_at" form:"created_at"`
 	UpdatedAt   time.Time      `json:"updated_at" form:"updated_at"`
 }

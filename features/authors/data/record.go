@@ -8,7 +8,7 @@ import (
 
 type Author struct {
 	ID        int       `json:"id" form:"id"`
-	Nama      string    `json:"nama" form:"nama"`
+	Nama      string    `json:"nama" form:"nama" gorm:"UNIQUE_INDEX"`
 	Book      []Book    `json:"book" form:"book" gorm:"many2many:detail_book;"`
 	CreatedAt time.Time `json:"created_at" form:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" form:"updated_at"`
@@ -19,7 +19,6 @@ type Book struct {
 	Judul     string    `json:"judul" form:"judul"`
 	CreatedAt time.Time `json:"created_at" form:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" form:"updated_at"`
-	AuthorID  int
 }
 
 //DTO

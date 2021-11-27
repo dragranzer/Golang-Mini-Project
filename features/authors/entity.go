@@ -5,7 +5,7 @@ import "time"
 type Core struct {
 	ID        int        `json:"id" form:"id"`
 	Nama      string     `json:"nama" form:"nama"`
-	Book      []BookCore `json:"book" form:"book" gorm:"many2many:detail_book;"`
+	Books     []BookCore `json:"book" form:"book" gorm:"many2many:detail_book;"`
 	CreatedAt time.Time  `json:"created_at" form:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at" form:"updated_at"`
 }

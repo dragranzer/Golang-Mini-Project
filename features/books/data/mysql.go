@@ -29,7 +29,7 @@ func (ar *mysqlBookRepository) InsertData(data books.Core) (resp books.Core, err
 func (ar *mysqlBookRepository) SelectAllData() (resp []books.Core) {
 	record := []Book{}
 
-	if err := ar.Conn.Preload("Kategori").Find(&record).Error; err != nil {
+	if err := ar.Conn.Preload("Kategoris").Find(&record).Error; err != nil {
 		return []books.Core{}
 	}
 

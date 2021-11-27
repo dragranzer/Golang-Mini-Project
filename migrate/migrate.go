@@ -38,11 +38,11 @@ func AutoMigrate() {
 		PublishedAt: time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC),
 		Like:        29,
 		Harga:       30000,
-		Kategori: []_book_data.Kategori{
+		Kategoris: []_book_data.Kategori{
 			{Nama: "sci-fi"},
 			{Nama: "history"},
 		},
-		Author: []_book_data.Author{
+		Authors: []_book_data.Author{
 			{Nama: "Nakahara"},
 			{Nama: "Chuuya"},
 		},
@@ -54,22 +54,22 @@ func AutoMigrate() {
 		PublishedAt: time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC),
 		Like:        29,
 		Harga:       30000,
-		Kategori: []_book_data.Kategori{
+		Kategoris: []_book_data.Kategori{
 			{Nama: "sci-fi"},
 			{Nama: "history"},
 		},
-		Author: []_book_data.Author{
+		Authors: []_book_data.Author{
 			{Nama: "Osamu"},
 			{Nama: "Dazai"},
 		},
 	}
 
-	// author1 := _author_data.Author{
-	// 	Nama: "Dazai",
-	// 	Book: []_author_data.Book{
-	// 		{Judul: "buku2"},
-	// 	},
-	// }
+	author1 := _author_data.Author{
+		Nama: "Dazai",
+		Book: []_author_data.Book{
+			{Judul: "buku2"},
+		},
+	}
 
 	// setelah dibuat, insert
 	if err := config.DB.Create(&book1).Error; err != nil {
@@ -78,8 +78,8 @@ func AutoMigrate() {
 	if err := config.DB.Create(&book2).Error; err != nil {
 		panic(err)
 	}
-	// if err := config.DB.Create(&author1).Error; err != nil {
-	// 	panic(err)
-	// }
+	if err := config.DB.Create(&author1).Error; err != nil {
+		panic(err)
+	}
 
 }
