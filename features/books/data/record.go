@@ -14,6 +14,7 @@ type Book struct {
 	Like        int        `json:"like" form:"like"`
 	Harga       int        `json:"harga" form:"harga"`
 	Kategori    []Kategori `json:"kategori" form:"kategori" gorm:"foreigKey:BookID;references:ID"`
+	Author      []Author   `json:"author" form:"author" gorm:"many2many:detail_book;"`
 	CreatedAt   time.Time  `json:"created_at" form:"created_at"`
 	UpdatedAt   time.Time  `json:"updated_at" form:"updated_at"`
 }
@@ -24,6 +25,13 @@ type Kategori struct {
 	CreatedAt time.Time `json:"created_at" form:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" form:"updated_at"`
 	BookID    int
+}
+
+type Author struct {
+	ID        int       `json:"id" form:"id"`
+	Nama      string    `json:"nama" form:"nama"`
+	CreatedAt time.Time `json:"created_at" form:"created_at"`
+	UpdatedAt time.Time `json:"updated_at" form:"updated_at"`
 }
 
 //DTO

@@ -1,8 +1,6 @@
 package data
 
 import (
-	"fmt"
-
 	"github.com/dragranzer/Golang-Mini-Project/features/books"
 	"gorm.io/gorm"
 )
@@ -18,9 +16,9 @@ func NewBookRepository(conn *gorm.DB) books.Data {
 }
 
 func (ar *mysqlBookRepository) InsertData(data books.Core) (resp books.Core, err error) {
-	fmt.Println("Data ========", data)
+	// fmt.Println("Data ========", data)
 	recordData := fromCore(data)
-	fmt.Println("Record data ======== ", recordData)
+	// fmt.Println("Record data ======== ", recordData)
 	err = ar.Conn.Create(&recordData).Error
 	if err != nil {
 		return books.Core{}, err

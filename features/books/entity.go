@@ -10,11 +10,19 @@ type Core struct {
 	Like        int            `json:"like" form:"like"`
 	Harga       int            `json:"harga" form:"harga"`
 	Kategori    []KategoriCore `json:"kategori" form:"kategori"`
+	Author      []AuthorCore   `json:"author" form:"author" gorm:"many2many:detail_book;"`
 	CreatedAt   time.Time      `json:"created_at" form:"created_at"`
 	UpdatedAt   time.Time      `json:"updated_at" form:"updated_at"`
 }
 
 type KategoriCore struct {
+	ID        int       `json:"id" form:"id"`
+	Nama      string    `json:"nama" form:"nama"`
+	CreatedAt time.Time `json:"created_at" form:"created_at"`
+	UpdatedAt time.Time `json:"updated_at" form:"updated_at"`
+}
+
+type AuthorCore struct {
 	ID        int       `json:"id" form:"id"`
 	Nama      string    `json:"nama" form:"nama"`
 	CreatedAt time.Time `json:"created_at" form:"created_at"`

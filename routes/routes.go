@@ -7,12 +7,16 @@ import (
 
 func New() *echo.Echo {
 
-	presenter := factory.Init()
+	_presenter_book := factory.Init()
+	_presenter_author := factory.InitAuthor()
 
 	e := echo.New()
 
-	e.GET("/books", presenter.BookPresentation.GetAllBook)
-	e.POST("/books", presenter.BookPresentation.InsertBook)
+	e.GET("/books", _presenter_book.BookPresentation.GetAllBook)
+	e.POST("/books", _presenter_book.BookPresentation.InsertBook)
+
+	e.GET("/authors", _presenter_author.AuthorPresentation.GetAllAuthor)
+	e.POST("/authors", _presenter_author.AuthorPresentation.InsertAuthor)
 
 	return e
 }
