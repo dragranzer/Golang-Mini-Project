@@ -1,6 +1,8 @@
 package data
 
 import (
+	"fmt"
+
 	"github.com/dragranzer/Golang-Mini-Project/features/users"
 	"gorm.io/gorm"
 )
@@ -18,7 +20,7 @@ func NewUserRepository(conn *gorm.DB) users.Data {
 func (ar *mysqlUserRepository) InsertData(data users.Core) (resp users.Core, err error) {
 	// fmt.Println("Data ========", data)
 	recordData := fromCore(data)
-	// fmt.Println("Record data ======== ", recordData)
+	fmt.Println("Record data ======== ", recordData)
 	err = ar.Conn.Create(&recordData).Error
 	if err != nil {
 		return users.Core{}, err
@@ -29,7 +31,7 @@ func (ar *mysqlUserRepository) InsertData(data users.Core) (resp users.Core, err
 func (ar *mysqlUserRepository) SelectAllData() (resp []users.Core) {
 	record := []User{}
 
-	if err := ar.Conn.Preload("Kategoris").Find(&record).Error; err != nil {
+	if err := ar.Conn.Find(&record).Error; err != nil {
 		return []users.Core{}
 	}
 

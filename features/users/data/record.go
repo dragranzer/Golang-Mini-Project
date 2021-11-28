@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/dragranzer/Golang-Mini-Project/features/users"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -16,6 +17,16 @@ type User struct {
 }
 
 //DTO
+
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
+
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
 
 func (a *User) toCore() users.Core {
 	return users.Core{
@@ -38,11 +49,10 @@ func toCoreList(resp []User) []users.Core {
 
 func fromCore(core users.Core) User {
 
+	password, _ := HashPassword(core.Password)
 	return User{
-		ID:        int(core.ID),
-		Nama:      core.Nama,
-		Email:     core.Email,
-		Password:  core.Password,
-		UpdatedAt: core.UpdatedAt,
+		Nama:     core.Nama,
+		Email:    core.Email,
+		Password: password,
 	}
 }
