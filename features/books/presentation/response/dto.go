@@ -7,11 +7,17 @@ import (
 )
 
 type Book struct {
-	Judul       string    `json:"judul" form:"judul"`
-	Tersedia    int       `json:"tersedia" form:"tersedia"`
-	PublishedAt time.Time `json:"published_at" form:"published_at"`
-	Like        int       `json:"like" form:"like"`
-	Harga       int       `json:"harga" form:"harga"`
+	Judul       string     `json:"judul" form:"judul"`
+	Tersedia    int        `json:"tersedia" form:"tersedia"`
+	PublishedAt time.Time  `json:"published_at" form:"published_at"`
+	Like        int        `json:"like" form:"like"`
+	Harga       int        `json:"harga" form:"harga"`
+	Kategoris   []Kategori `json:"kategori" form:"kategori"`
+}
+
+type Kategori struct {
+	ID   int    `json:"id" form:"id"`
+	Nama string `json:"nama" form:"nama"`
 }
 
 func FromCore(req books.Core) Book {
