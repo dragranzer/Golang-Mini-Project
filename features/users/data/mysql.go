@@ -17,15 +17,15 @@ func NewUserRepository(conn *gorm.DB) users.Data {
 	}
 }
 
-func (ar *mysqlUserRepository) InsertData(data users.Core) (resp users.Core, err error) {
+func (ar *mysqlUserRepository) InsertData(data users.Core) (err error) {
 	// fmt.Println("Data ========", data)
 	recordData := fromCore(data)
 	fmt.Println("Record data ======== ", recordData)
 	err = ar.Conn.Create(&recordData).Error
 	if err != nil {
-		return users.Core{}, err
+		return err
 	}
-	return data, nil
+	return nil
 }
 
 func (ar *mysqlUserRepository) SelectAllData() (resp []users.Core) {

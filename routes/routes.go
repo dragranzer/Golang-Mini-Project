@@ -13,7 +13,10 @@ func New() *echo.Echo {
 
 	e := echo.New()
 
-	e.GET("/books", _presenter_book.BookPresentation.GetAllBook)
+	routes := e.Group("/books")
+
+	routes.GET("/:name", _presenter_book.BookPresentation.GetBook)
+	// e.GET("/books", _presenter_book.BookPresentation.GetAllBook)
 	e.POST("/books", _presenter_book.BookPresentation.InsertBook)
 
 	e.GET("/authors", _presenter_author.AuthorPresentation.GetAllAuthor)

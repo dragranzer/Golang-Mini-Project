@@ -48,3 +48,23 @@ func (ah *BooksHandler) InsertBook(c echo.Context) error {
 		"book":    data,
 	})
 }
+
+func (boh *BooksHandler) GetBook(c echo.Context) error {
+
+	var name string
+	c.Bind(&name)
+	fmt.Println("masuk handlers")
+	result, err := boh.bookBussiness.GetDetailData(name)
+
+	if err != nil {
+		return c.JSON(404, map[string]interface{}{
+			"message": "Could not get article",
+			"error":   err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "hope all feeling well",
+		"data":    response.FromCore(result),
+	})
+}

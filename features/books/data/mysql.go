@@ -36,3 +36,14 @@ func (ar *mysqlBookRepository) SelectAllData() (resp []books.Core) {
 	// jangan lupa ditranlasiin ke core
 	return toCoreList(record)
 }
+
+func (br *mysqlBookRepository) SelectData(name string) (resp books.Core, err error) {
+
+	record := books.Core{}
+
+	if err = br.Conn.Where("name <> ?", name).Find(&record).Error; err != nil {
+		return books.Core{}, err
+	}
+
+	return record, nil
+}
