@@ -9,12 +9,12 @@ type User struct {
 	Password string `json:"password" form:"password"`
 }
 
-func FromCore(req users.Core) User {
+func FromCore(res users.Core) User {
 	return User{
-		ID:       req.ID,
-		Nama:     req.Nama,
-		Email:    req.Email,
-		Password: req.Password,
+		ID:       res.ID,
+		Nama:     res.Nama,
+		Email:    res.Email,
+		Password: res.Password,
 	}
 }
 

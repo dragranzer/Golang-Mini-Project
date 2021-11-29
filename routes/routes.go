@@ -13,6 +13,10 @@ func New() *echo.Echo {
 
 	e := echo.New()
 
+	// routes := e.Group("/books")
+
+	e.GET("/books/:judul", _presenter_book.BookPresentation.GetBook)
+	// e.GET("/books", _presenter_book.BookPresentation.GetBook)
 	e.GET("/books", _presenter_book.BookPresentation.GetAllBook)
 	e.POST("/books", _presenter_book.BookPresentation.InsertBook)
 

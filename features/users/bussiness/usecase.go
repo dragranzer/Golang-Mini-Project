@@ -12,19 +12,19 @@ func NewUserBussiness(artData users.Data) users.Bussiness {
 	}
 }
 
-func (bu *usersUsecase) CreateData(data users.Core) (resp users.Core, err error) {
+func (bu *usersUsecase) CreateData(data users.Core) (err error) {
 	// if err := bu.validate.Struct(data); err != nil {
 	// 	return users.Core{}, err
 	// }
 
-	data, err = bu.userData.InsertData(data)
+	err = bu.userData.InsertData(data)
 	if err != nil {
-		return users.Core{}, err
+		return err
 	}
-	return data, nil
+	return nil
 }
 
 func (bu *usersUsecase) GetAllData() (resp []users.Core) {
 	resp = bu.userData.SelectAllData()
-	return
+	return resp
 }
