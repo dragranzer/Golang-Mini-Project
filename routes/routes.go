@@ -10,6 +10,7 @@ func New() *echo.Echo {
 	_presenter_book := factory.Init()
 	_presenter_author := factory.InitAuthor()
 	_presenter_user := factory.InitUser()
+	_presenter_peminjaman := factory.InitPeminjaman()
 
 	e := echo.New()
 
@@ -25,6 +26,9 @@ func New() *echo.Echo {
 
 	e.GET("/users", _presenter_user.UserPresentation.GetAllUser)
 	e.POST("/users", _presenter_user.UserPresentation.InsertUser)
+
+	e.GET("/peminjamans", _presenter_peminjaman.PeminjamanPresentation.GetAllPeminjaman)
+	e.POST("/peminjamans", _presenter_peminjaman.PeminjamanPresentation.InsertPeminjaman)
 
 	return e
 }
