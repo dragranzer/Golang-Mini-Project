@@ -70,3 +70,16 @@ func fromCore(core books.Core) Book {
 		UpdatedAt:   core.UpdatedAt,
 	}
 }
+
+func toCore(book Book) books.Core {
+
+	return books.Core{
+		Judul:       book.Judul,
+		Tersedia:    book.Tersedia,
+		PublishedAt: book.PublishedAt,
+		Like:        book.Like,
+		Harga:       book.Harga,
+		CreatedAt:   book.CreatedAt,
+		UpdatedAt:   book.UpdatedAt,
+	}
+}

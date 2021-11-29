@@ -1,6 +1,8 @@
 package data
 
 import (
+	"fmt"
+
 	"github.com/dragranzer/Golang-Mini-Project/features/books"
 	"gorm.io/gorm"
 )
@@ -37,13 +39,13 @@ func (ar *mysqlBookRepository) SelectAllData() (resp []books.Core) {
 	return toCoreList(record)
 }
 
-func (br *mysqlBookRepository) SelectData(name string) (resp books.Core, err error) {
+func (br *mysqlBookRepository) SelectData(judul string) (resp []books.Core, err error) {
 
-	record := books.Core{}
-
-	if err = br.Conn.Where("name <> ?", name).Find(&record).Error; err != nil {
-		return books.Core{}, err
+	record := []Book{}
+	fmt.Println("judul = ", judul)
+	if err = br.Conn.Preload("Kategoris").Where("judul = ?", judul).Find(&record).Error; err != nil {
+		return []books.Core{}, err
 	}
 
-	return record, nil
+	return toCoreList(record), nil
 }
