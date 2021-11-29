@@ -1,14 +1,19 @@
 package bussiness
 
-import "github.com/dragranzer/Golang-Mini-Project/features/users"
+import (
+	"github.com/dragranzer/Golang-Mini-Project/features/books"
+	"github.com/dragranzer/Golang-Mini-Project/features/users"
+)
 
 type usersUsecase struct {
-	userData users.Data
+	userData      users.Data
+	bookBussiness books.Bussiness
 }
 
-func NewUserBussiness(artData users.Data) users.Bussiness {
+func NewUserBussiness(usrData users.Data, bB books.Bussiness) users.Bussiness {
 	return &usersUsecase{
-		userData: artData,
+		userData:      usrData,
+		bookBussiness: bB,
 	}
 }
 

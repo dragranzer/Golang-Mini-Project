@@ -8,8 +8,8 @@ import (
 
 type Author struct {
 	ID        int       `json:"id" form:"id"`
-	Nama      string    `json:"nama" form:"nama" gorm:"UNIQUE_INDEX"`
-	Book      []Book    `json:"book" form:"book" gorm:"many2many:detail_book;"`
+	Nama      string    `json:"nama" form:"nama" gorm:"unique"`
+	Books     []Book    `json:"book" form:"book" gorm:"many2many:detail_books;"`
 	CreatedAt time.Time `json:"created_at" form:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" form:"updated_at"`
 }
@@ -46,5 +46,15 @@ func fromCore(core authors.Core) Author {
 		Nama:      core.Nama,
 		CreatedAt: core.CreatedAt,
 		UpdatedAt: core.UpdatedAt,
+	}
+}
+
+func toCore1(author Author) authors.Core {
+
+	return authors.Core{
+		ID:        author.ID,
+		Nama:      author.Nama,
+		CreatedAt: author.CreatedAt,
+		UpdatedAt: author.UpdatedAt,
 	}
 }

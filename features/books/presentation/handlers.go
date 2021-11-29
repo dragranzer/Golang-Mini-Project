@@ -37,7 +37,7 @@ func (ah *BooksHandler) InsertBook(c echo.Context) error {
 	c.Bind(&book)
 	fmt.Println("book = ", book)
 	fmt.Println("book presentation ========== ", book)
-	data, err := ah.bookBussiness.CreateData(request.ToCore(book))
+	_, err := ah.bookBussiness.CreateData(request.ToCore(book))
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -46,8 +46,7 @@ func (ah *BooksHandler) InsertBook(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success",
-		"book":    data,
+		"message": "success melakukan insert",
 	})
 }
 

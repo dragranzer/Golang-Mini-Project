@@ -34,7 +34,7 @@ func (ah *AuthorsHandler) InsertAuthor(c echo.Context) error {
 	// fmt.Println("Masuk Handlers F2")
 	author := request.Author{}
 	c.Bind(&author)
-	fmt.Println("author presentation ========== ", author)
+	// fmt.Println("author presentation ========== ", author)
 	data, err := ah.authorBussiness.CreateData(request.ToCore(author))
 
 	if err != nil {

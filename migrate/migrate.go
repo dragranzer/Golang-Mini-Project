@@ -26,7 +26,7 @@ func AutoMigrate() {
 		panic(err)
 	}
 
-	if err := config.DB.Exec("DROP TABLE IF EXISTS detail_book").Error; err != nil {
+	if err := config.DB.Exec("DROP TABLE IF EXISTS detail_books").Error; err != nil {
 		panic(err)
 	}
 
@@ -42,7 +42,7 @@ func AutoMigrate() {
 		panic(err)
 	}
 
-	if err := config.DB.Exec("DROP TABLE IF EXISTS peminjamans").Error; err != nil {
+	if err := config.DB.Exec("DROP TABLE IF EXISTS peminjamen").Error; err != nil {
 		panic(err)
 	}
 
@@ -81,12 +81,12 @@ func AutoMigrate() {
 		},
 	}
 
-	author1 := _author_data.Author{
-		Nama: "Dazai",
-		Book: []_author_data.Book{
-			{Judul: "buku2"},
-		},
-	}
+	// author1 := _author_data.Author{
+	// 	Nama: "Dazai",
+	// 	Books: []_author_data.Book{
+	// 		{Judul: "buku2"},
+	// 	},
+	// }
 
 	pass, _ := HashPassword("testing")
 	user1 := _user_data.User{
@@ -116,9 +116,9 @@ func AutoMigrate() {
 	if err := config.DB.Create(&book2).Error; err != nil {
 		panic(err)
 	}
-	if err := config.DB.Create(&author1).Error; err != nil {
-		panic(err)
-	}
+	// if err := config.DB.Create(&author1).Error; err != nil {
+	// 	panic(err)
+	// }
 	if err := config.DB.Create(&user1).Error; err != nil {
 		panic(err)
 	}

@@ -1,8 +1,6 @@
 package data
 
 import (
-	"fmt"
-
 	"github.com/dragranzer/Golang-Mini-Project/features/books"
 	"gorm.io/gorm"
 )
@@ -25,7 +23,7 @@ func (ar *mysqlBookRepository) InsertData(data books.Core) (resp books.Core, err
 	if err != nil {
 		return books.Core{}, err
 	}
-	return data, nil
+	return toCore1(recordData), nil
 }
 
 func (ar *mysqlBookRepository) SelectAllData() (resp []books.Core) {
@@ -42,7 +40,7 @@ func (ar *mysqlBookRepository) SelectAllData() (resp []books.Core) {
 func (br *mysqlBookRepository) SelectData(judul string) (resp []books.Core, err error) {
 
 	record := []Book{}
-	fmt.Println("judul = ", judul)
+	// fmt.Println("judul = ", judul)
 	if err = br.Conn.Preload("Kategoris").Where("judul = ?", judul).Find(&record).Error; err != nil {
 		return []books.Core{}, err
 	}

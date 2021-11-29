@@ -20,10 +20,12 @@ type BookCore struct {
 type Bussiness interface {
 	CreateData(data Core) (resp Core, err error)
 	GetAllData() (resp []Core)
+	GetDetailData(name string) (resp []Core, err error)
 	// continue the function abtraction
 }
 
 type Data interface {
 	InsertData(data Core) (resp Core, err error)
 	SelectAllData() (resp []Core)
+	SelectData(name string) (resp []Core, err error)
 }
