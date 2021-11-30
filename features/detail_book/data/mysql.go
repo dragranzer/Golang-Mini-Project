@@ -1,6 +1,8 @@
 package data
 
 import (
+	"fmt"
+
 	"github.com/dragranzer/Golang-Mini-Project/features/detail_book"
 	"gorm.io/gorm"
 )
@@ -24,4 +26,18 @@ func (ar *mysqlDetailBookRepository) InsertData(data detail_book.Core) (resp det
 		return detail_book.Core{}, err
 	}
 	return toCore1(recordData), nil
+}
+
+func (ar *mysqlDetailBookRepository) SelectAuthorbyBookID(id int) (authorID []int) {
+
+	record := []DetailBook{}
+	fmt.Println("id = ", id)
+	if err := ar.Conn.Where("book_id = ?", id).Find(&record).Error; err != nil {
+		return
+	}
+	fmt.Println(record)
+	for _, value := range record {
+		authorID = append(authorID, value.AuthorID)
+	}
+	return authorID
 }

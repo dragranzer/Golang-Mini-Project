@@ -20,3 +20,8 @@ func (du *detail_bookUsecase) CreateData(data detail_book.Core) (resp detail_boo
 	}
 	return data, nil
 }
+
+func (du *detail_bookUsecase) GetAuthorbyBookID(id int) (authorID []int) {
+	authorID = du.detail_bookData.SelectAuthorbyBookID(id)
+	return authorID
+}

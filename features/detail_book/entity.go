@@ -7,8 +7,10 @@ type Core struct {
 
 type Bussiness interface {
 	CreateData(data Core) (resp Core, err error)
+	GetAuthorbyBookID(id int) (authorID []int)
 }
 
 type Data interface {
 	InsertData(data Core) (resp Core, err error)
+	SelectAuthorbyBookID(id int) (authorID []int)
 }

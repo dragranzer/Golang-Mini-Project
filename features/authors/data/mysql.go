@@ -50,3 +50,11 @@ func (br *mysqlAuthorRepository) SelectData(nama string) (resp []authors.Core, e
 
 	return toCoreList(record), nil
 }
+
+func (br *mysqlAuthorRepository) SelectDatabyID(id int) (resp authors.Core, err error) {
+	record := Author{}
+	if err = br.Conn.Where("id = ?", id).Find(&record).Error; err != nil {
+		return authors.Core{}, err
+	}
+	return record.toCore(), nil
+}

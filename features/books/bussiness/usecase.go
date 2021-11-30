@@ -74,7 +74,30 @@ func (bu *booksUsecase) GetAllData() (resp []books.Core) {
 
 func (bu *booksUsecase) GetDetailData(judul string) (resp []books.Core, err error) {
 	resp, err = bu.bookData.SelectData(judul)
-	// fmt.Println("get detail data")
+	listAuthorID := bu.detBookBussiness.GetAuthorbyBookID(resp[0].ID)
+	fmt.Println("lsit author id", listAuthorID)
+	listAuthorCore := []authors.Core{}
+	for _, value := range listAuthorID {
+		authorData, _ := bu.authorBussiness.GetDetailDatabyID(value)
+		listAuthorCore = append(listAuthorCore, authorData)
+	}
+	fmt.Println(listAuthorCore)
+	listAuthor := []books.AuthorCore{}
+
+	for _, value := range listAuthorCore {
+		author := books.AuthorCore{
+			ID:   value.ID,
+			Nama: value.Nama,
+		}
+		listAuthor = append(listAuthor, author)
+	}
+	resp[0] = books.Core{
+		ID:          resp[0].ID,
+		Judul:       resp[0].Judul,
+		PublishedAt: resp[0].PublishedAt,
+		Harga:       resp[0].Harga,
+		Authors:     listAuthor,
+	}
 	if err != nil {
 		return []books.Core{}, err
 	}

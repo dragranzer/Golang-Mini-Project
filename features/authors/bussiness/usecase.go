@@ -37,3 +37,13 @@ func (bu *authorsUsecase) GetDetailData(judul string) (resp []authors.Core, err 
 
 	return resp, nil
 }
+
+func (bu *authorsUsecase) GetDetailDatabyID(id int) (resp authors.Core, err error) {
+	resp, err = bu.authorData.SelectDatabyID(id)
+	// fmt.Println("get detail data")
+	if err != nil {
+		return authors.Core{}, err
+	}
+
+	return resp, nil
+}
