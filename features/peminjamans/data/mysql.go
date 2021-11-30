@@ -1,6 +1,8 @@
 package data
 
 import (
+	"fmt"
+
 	"github.com/dragranzer/Golang-Mini-Project/features/peminjamans"
 	"gorm.io/gorm"
 )
@@ -34,5 +36,16 @@ func (ar *mysqlPeminjamanRepository) SelectAllData() (resp []peminjamans.Core) {
 	}
 
 	// jangan lupa ditranlasiin ke core
+	return toCoreList(record)
+}
+
+func (ar *mysqlPeminjamanRepository) SelectDetailBookPinjam(id int) (resp []peminjamans.Core) {
+	record := []Peminjaman{}
+	fmt.Println("id buku = ", id)
+	if err := ar.Conn.Where("book_id = ?", id).Find(&record).Error; err != nil {
+
+		return
+	}
+	fmt.Println("recordd  ", record)
 	return toCoreList(record)
 }

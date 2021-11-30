@@ -47,3 +47,18 @@ func (br *mysqlBookRepository) SelectData(judul string) (resp []books.Core, err 
 
 	return toCoreList(record), nil
 }
+
+func (br *mysqlBookRepository) UpdateTersediabyName(name string) (resp books.Core, err error) {
+	record := Book{}
+	tersedia := Book{}
+	if err = br.Conn.Preload("Kategoris").Where("judul = ?", name).Find(&tersedia).Error; err != nil {
+		return books.Core{}, err
+	}
+	tersedia.Tersedia--
+	// fmt.Println("tersedia ", tersedia)
+	if err = br.Conn.Model(&record).Where("id = ?", tersedia.ID).Update("tersedia", tersedia.Tersedia).Error; err != nil {
+		return books.Core{}, err
+	}
+	// fmt.Println("update ", record)
+	return
+}

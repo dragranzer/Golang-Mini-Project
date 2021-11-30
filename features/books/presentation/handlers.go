@@ -51,10 +51,10 @@ func (ah *BooksHandler) InsertBook(c echo.Context) error {
 }
 
 func (boh *BooksHandler) GetBook(c echo.Context) error {
-	fmt.Println("masuk handlers")
+	// fmt.Println("masuk handlers")
 	var judul string
 	echo.PathParamsBinder(c).String("judul", &judul)
-	fmt.Println("judul = ", judul)
+	// fmt.Println("judul = ", judul)
 	result, err := boh.bookBussiness.GetDetailData(judul)
 
 	if err != nil {

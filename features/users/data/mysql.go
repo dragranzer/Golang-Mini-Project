@@ -48,3 +48,12 @@ func (ar *mysqlUserRepository) SelectDatabyName(name string) (resp users.Core, e
 
 	return record.toCore(), nil
 }
+
+func (ar *mysqlUserRepository) SelectDatabyID(id int) (resp users.Core, err error) {
+	record := User{}
+	if err = ar.Conn.Where("id = ?", id).Find(&record).Error; err != nil {
+		return users.Core{}, err
+	}
+
+	return record.toCore(), nil
+}

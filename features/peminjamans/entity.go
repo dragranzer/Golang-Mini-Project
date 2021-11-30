@@ -10,13 +10,25 @@ type Core struct {
 	UserName   string `json:"user_name" form:"user_name"`
 }
 
+type DetailBookPinjam struct {
+	ID        int
+	Peminjams []Peminjam
+}
+
+type Peminjam struct {
+	ID   int
+	Nama string
+}
+
 type Bussiness interface {
 	CreateData(data Core) (resp Core, err error)
 	GetAllData() (resp []Core)
+	GetDetailBookPinjam(judul string) (resp DetailBookPinjam)
 	// continue the function abtraction
 }
 
 type Data interface {
 	InsertData(data Core) (resp Core, err error)
 	SelectAllData() (resp []Core)
+	SelectDetailBookPinjam(id int) (resp []Core)
 }

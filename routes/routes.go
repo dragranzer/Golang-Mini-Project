@@ -28,6 +28,7 @@ func New() *echo.Echo {
 
 	e.GET("/peminjamans", _presenter_book_author_user_detbok_peminjaman.PeminjamanPresentation.GetAllPeminjaman)
 	e.POST("/peminjamans", _presenter_book_author_user_detbok_peminjaman.PeminjamanPresentation.InsertPeminjaman)
+	e.GET("/peminjamans/book/:judul", _presenter_book_author_user_detbok_peminjaman.PeminjamanPresentation.GetDetailPinjam)
 
 	return e
 }

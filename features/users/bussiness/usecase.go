@@ -38,3 +38,8 @@ func (bu *usersUsecase) GetDatabyName(name string) (resp users.Core, err error) 
 	resp, _ = bu.userData.SelectDatabyName(name)
 	return resp, nil
 }
+
+func (bu *usersUsecase) GetDatabyID(id int) (resp users.Core, err error) {
+	resp, _ = bu.userData.SelectDatabyID(id)
+	return resp, nil
+}

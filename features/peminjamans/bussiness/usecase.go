@@ -1,6 +1,8 @@
 package bussiness
 
 import (
+	"fmt"
+
 	"github.com/dragranzer/Golang-Mini-Project/features/books"
 	"github.com/dragranzer/Golang-Mini-Project/features/peminjamans"
 	"github.com/dragranzer/Golang-Mini-Project/features/users"
@@ -37,10 +39,33 @@ func (bu *peminjamansUsecase) CreateData(data peminjamans.Core) (resp peminjaman
 	if err != nil {
 		return peminjamans.Core{}, err
 	}
+	// fmt.Println(book[0].Judul)
+	_, _ = bu.bookBussiness.ChangeTersediabyName(book[0].Judul)
 	return data, nil
 }
 
 func (bu *peminjamansUsecase) GetAllData() (resp []peminjamans.Core) {
 	resp = bu.peminjamanData.SelectAllData()
+	return resp
+}
+
+func (bu *peminjamansUsecase) GetDetailBookPinjam(judul string) (resp peminjamans.DetailBookPinjam) {
+	book, _ := bu.bookBussiness.GetDetailData(judul)
+	fmt.Println(book)
+	listPeminjaman := bu.peminjamanData.SelectDetailBookPinjam(book[0].ID)
+	fmt.Println("list peminjaman ", listPeminjaman)
+	listPeminjamID := []peminjamans.Peminjam{}
+	for _, value := range listPeminjaman {
+		temp, _ := bu.userBussiness.GetDatabyID(value.UserID)
+		listPeminjamID = append(listPeminjamID, peminjamans.Peminjam{
+			ID:   value.UserID,
+			Nama: temp.Nama,
+		})
+	}
+	resp = peminjamans.DetailBookPinjam{
+		ID:        book[0].ID,
+		Peminjams: listPeminjamID,
+	}
+
 	return resp
 }
