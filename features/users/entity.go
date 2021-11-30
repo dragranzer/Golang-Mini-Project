@@ -14,10 +14,12 @@ type Core struct {
 type Bussiness interface {
 	CreateData(data Core) (err error)
 	GetAllData() (resp []Core)
+	GetDatabyName(name string) (resp Core, err error)
 	// continue the function abtraction
 }
 
 type Data interface {
 	InsertData(data Core) (err error)
 	SelectAllData() (resp []Core)
+	SelectDatabyName(name string) (resp Core, err error)
 }

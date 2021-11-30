@@ -45,6 +45,6 @@ func (ah *PeminjamansHandler) InsertPeminjaman(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message":    "success",
-		"peminjaman": data,
+		"peminjaman": response.FromCore(data),
 	})
 }

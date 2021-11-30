@@ -38,3 +38,13 @@ func (ar *mysqlUserRepository) SelectAllData() (resp []users.Core) {
 	// jangan lupa ditranlasiin ke core
 	return toCoreList(record)
 }
+
+func (ar *mysqlUserRepository) SelectDatabyName(name string) (resp users.Core, err error) {
+
+	record := User{}
+	if err = ar.Conn.Where("nama = ?", name).Find(&record).Error; err != nil {
+		return users.Core{}, err
+	}
+
+	return record.toCore(), nil
+}

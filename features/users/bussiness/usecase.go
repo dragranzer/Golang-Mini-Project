@@ -33,3 +33,8 @@ func (bu *usersUsecase) GetAllData() (resp []users.Core) {
 	resp = bu.userData.SelectAllData()
 	return resp
 }
+
+func (bu *usersUsecase) GetDatabyName(name string) (resp users.Core, err error) {
+	resp, _ = bu.userData.SelectDatabyName(name)
+	return resp, nil
+}

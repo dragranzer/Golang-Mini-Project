@@ -1,6 +1,7 @@
 package presentation
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/dragranzer/Golang-Mini-Project/features/users"
@@ -41,5 +42,20 @@ func (ah *UsersHandler) InsertUser(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "data success di masukkan",
+	})
+}
+
+func (uH *UsersHandler) GetUser(c echo.Context) error {
+	fmt.Println("masuk handlers")
+	var name string
+	echo.PathParamsBinder(c).String("nama", &name)
+	fmt.Println(name)
+	// result := []users.Core{}
+	// result = append(result, uH.userBussiness.GetDatabyName(name))
+	result, _ := uH.userBussiness.GetDatabyName(name)
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "hope all feeling well",
+		"data":    result,
 	})
 }
