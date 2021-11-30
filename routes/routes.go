@@ -25,6 +25,7 @@ func New() *echo.Echo {
 	e.GET("/users", _presenter_book_author_user_detbok_peminjaman.UserPresentation.GetAllUser)
 	e.GET("/users/:nama", _presenter_book_author_user_detbok_peminjaman.UserPresentation.GetUser)
 	e.POST("/users", _presenter_book_author_user_detbok_peminjaman.UserPresentation.InsertUser)
+	e.PUT("/users/:id", _presenter_book_author_user_detbok_peminjaman.UserPresentation.UpdateUserData)
 
 	e.GET("/peminjamans", _presenter_book_author_user_detbok_peminjaman.PeminjamanPresentation.GetAllPeminjaman)
 	e.POST("/peminjamans", _presenter_book_author_user_detbok_peminjaman.PeminjamanPresentation.InsertPeminjaman)

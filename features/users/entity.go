@@ -16,6 +16,7 @@ type Bussiness interface {
 	GetAllData() (resp []Core)
 	GetDatabyName(name string) (resp Core, err error)
 	GetDatabyID(id int) (resp Core, err error)
+	ChangeDatabyID(id int, newData Core) (err error)
 	// continue the function abtraction
 }
 
@@ -24,4 +25,5 @@ type Data interface {
 	SelectAllData() (resp []Core)
 	SelectDatabyName(name string) (resp Core, err error)
 	SelectDatabyID(id int) (resp Core, err error)
+	UpdateDatabyID(id int, newData Core) (err error)
 }

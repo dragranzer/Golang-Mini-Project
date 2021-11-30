@@ -43,3 +43,9 @@ func (bu *usersUsecase) GetDatabyID(id int) (resp users.Core, err error) {
 	resp, _ = bu.userData.SelectDatabyID(id)
 	return resp, nil
 }
+
+func (bu *usersUsecase) ChangeDatabyID(id int, newData users.Core) (err error) {
+	err = bu.userData.UpdateDatabyID(id, newData)
+
+	return err
+}

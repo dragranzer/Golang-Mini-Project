@@ -59,3 +59,23 @@ func (uH *UsersHandler) GetUser(c echo.Context) error {
 		"data":    result,
 	})
 }
+
+func (uH *UsersHandler) UpdateUserData(c echo.Context) error {
+	user := request.User{}
+	var idstring string
+	echo.PathParamsBinder(c).String("id", &idstring)
+	c.Bind(&user)
+	// id, _ := strconv.Atoi(idstring)
+	fmt.Println("id ", user.ID)
+	fmt.Println("newdata", user)
+	err := uH.userBussiness.ChangeDatabyID(user.ID, request.ToCore(user))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Data changed",
+	})
+}
