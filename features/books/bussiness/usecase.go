@@ -116,3 +116,11 @@ func (bu *booksUsecase) ChangeTersediabyName(name string) (resp books.Core, err 
 
 	return
 }
+
+func (bu *booksUsecase) GetDetailDatabyID(id int) (resp books.Core, err error) {
+	resp, err = bu.bookData.SelectbyID(id)
+	if err != nil {
+		return books.Core{}, err
+	}
+	return
+}

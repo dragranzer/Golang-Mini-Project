@@ -7,29 +7,31 @@ import (
 
 func New() *echo.Echo {
 
-	_presenter_book_author_user_detbok_peminjaman := factory.Init()
-	// _presenter_peminjaman := factory.InitPeminjaman()
+	_presenter := factory.Init()
 
 	e := echo.New()
 
 	// routes := e.Group("/books")
 
-	e.GET("/books/:judul", _presenter_book_author_user_detbok_peminjaman.BookPresentation.GetBook)
+	e.GET("/books/:judul", _presenter.BookPresentation.GetBook)
 	// e.GET("/books", _presenter_book.BookPresentation.GetBook)
-	e.GET("/books", _presenter_book_author_user_detbok_peminjaman.BookPresentation.GetAllBook)
-	e.POST("/books", _presenter_book_author_user_detbok_peminjaman.BookPresentation.InsertBook)
+	e.GET("/books", _presenter.BookPresentation.GetAllBook)
+	e.POST("/books", _presenter.BookPresentation.InsertBook)
 
-	e.GET("/authors", _presenter_book_author_user_detbok_peminjaman.AuthorPresentation.GetAllAuthor)
-	e.POST("/authors", _presenter_book_author_user_detbok_peminjaman.AuthorPresentation.InsertAuthor)
+	e.GET("/authors", _presenter.AuthorPresentation.GetAllAuthor)
+	e.POST("/authors", _presenter.AuthorPresentation.InsertAuthor)
 
-	e.GET("/users", _presenter_book_author_user_detbok_peminjaman.UserPresentation.GetAllUser)
-	e.GET("/users/:nama", _presenter_book_author_user_detbok_peminjaman.UserPresentation.GetUser)
-	e.POST("/users", _presenter_book_author_user_detbok_peminjaman.UserPresentation.InsertUser)
-	e.PUT("/users/:id", _presenter_book_author_user_detbok_peminjaman.UserPresentation.UpdateUserData)
+	e.GET("/users", _presenter.UserPresentation.GetAllUser)
+	e.GET("/users/:nama", _presenter.UserPresentation.GetUser)
+	e.POST("/users", _presenter.UserPresentation.InsertUser)
+	e.PUT("/users/:id", _presenter.UserPresentation.UpdateUserData)
 
-	e.GET("/peminjamans", _presenter_book_author_user_detbok_peminjaman.PeminjamanPresentation.GetAllPeminjaman)
-	e.POST("/peminjamans", _presenter_book_author_user_detbok_peminjaman.PeminjamanPresentation.InsertPeminjaman)
-	e.GET("/peminjamans/book/:judul", _presenter_book_author_user_detbok_peminjaman.PeminjamanPresentation.GetDetailPinjam)
+	e.GET("/peminjamans", _presenter.PeminjamanPresentation.GetAllPeminjaman)
+	e.POST("/peminjamans", _presenter.PeminjamanPresentation.InsertPeminjaman)
+	e.GET("/peminjamans/book/:judul", _presenter.PeminjamanPresentation.GetDetailPinjam)
+
+	e.POST("/favorite", _presenter.FavoritePresentation.InsertFavorites)
+	e.GET("/favorite/:id", _presenter.FavoritePresentation.GetFavbyUserID)
 
 	return e
 }

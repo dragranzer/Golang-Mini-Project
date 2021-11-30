@@ -62,3 +62,12 @@ func (br *mysqlBookRepository) UpdateTersediabyName(name string) (resp books.Cor
 	// fmt.Println("update ", record)
 	return
 }
+
+func (br *mysqlBookRepository) SelectbyID(id int) (resp books.Core, err error) {
+	record := Book{}
+	if err = br.Conn.Preload("Kategoris").Where("id = ?", id).Find(&record).Error; err != nil {
+		return books.Core{}, err
+	}
+	resp = record.toCore()
+	return resp, nil
+}

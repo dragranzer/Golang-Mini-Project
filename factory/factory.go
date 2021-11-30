@@ -21,6 +21,10 @@ import (
 	_peminjaman_bussiness "github.com/dragranzer/Golang-Mini-Project/features/peminjamans/bussiness"
 	_peminjaman_data "github.com/dragranzer/Golang-Mini-Project/features/peminjamans/data"
 	_peminjaman_presentation "github.com/dragranzer/Golang-Mini-Project/features/peminjamans/presentation"
+
+	_favorite_bussiness "github.com/dragranzer/Golang-Mini-Project/features/favorites/bussiness"
+	_favorite_data "github.com/dragranzer/Golang-Mini-Project/features/favorites/data"
+	_favorite_presentation "github.com/dragranzer/Golang-Mini-Project/features/favorites/presentation"
 )
 
 type Presenter struct {
@@ -29,6 +33,7 @@ type Presenter struct {
 	UserPresentation       *_user_presentation.UsersHandler
 	DetailBookPresentation *_detail_book_presentation.Detail_bookHandler
 	PeminjamanPresentation *_peminjaman_presentation.PeminjamansHandler
+	FavoritePresentation   *_favorite_presentation.FavoritesHandler
 }
 
 func Init() Presenter {
@@ -38,12 +43,14 @@ func Init() Presenter {
 	userData := _user_data.NewUserRepository(config.DB)
 	detail_bookData := _detail_book_data.NewDetailBookRepository(config.DB)
 	peminjamanData := _peminjaman_data.NewPeminjamanRepository(config.DB)
+	favoriteData := _favorite_data.NewFavoriteRepository(config.DB)
 
 	detail_bookBussiness := _detail_book_bussiness.NewDetailBookBussiness(detail_bookData)
 	authorBussiness := _author_bussiness.NewAuthorBussiness(authorData)
 	bookBussiness := _book_bussiness.NewBookBussiness(bookData, authorBussiness, detail_bookBussiness)
 	userBussiness := _user_bussiness.NewUserBussiness(userData, bookBussiness)
 	peminjamanBussiness := _peminjaman_bussiness.NewPeminjamanBussiness(peminjamanData, bookBussiness, userBussiness)
+	favoriteBussiness := _favorite_bussiness.NewFavoriteBussiness(favoriteData, bookBussiness, userBussiness)
 
 	// authorData := _author_data.NewAuthorRepository(config.DB)
 	// authorBussiness := _author_bussiness.NewAuthorBussiness(authorData)
@@ -54,5 +61,6 @@ func Init() Presenter {
 		UserPresentation:       _user_presentation.NewUserHandler(userBussiness),
 		DetailBookPresentation: _detail_book_presentation.Newdetail_bookHandler(detail_bookBussiness),
 		PeminjamanPresentation: _peminjaman_presentation.NewPeminjamanHandler(peminjamanBussiness),
+		FavoritePresentation:   _favorite_presentation.NewFavoriteHandler(favoriteBussiness),
 	}
 }

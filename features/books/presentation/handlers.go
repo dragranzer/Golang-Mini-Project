@@ -33,10 +33,10 @@ func (boh *BooksHandler) GetAllBook(c echo.Context) error {
 func (ah *BooksHandler) InsertBook(c echo.Context) error {
 	// fmt.Println("Masuk Handlers F2")
 	book := request.Book{}
-	fmt.Println("book0 = ", book)
+	// fmt.Println("book0 = ", book)
 	c.Bind(&book)
-	fmt.Println("book = ", book)
-	fmt.Println("book presentation ========== ", book)
+	// fmt.Println("book = ", book)
+	// fmt.Println("book presentation ========== ", book)
 	_, err := ah.bookBussiness.CreateData(request.ToCore(book))
 
 	if err != nil {
