@@ -3,7 +3,6 @@ package response
 import "github.com/dragranzer/Golang-Mini-Project/features/peminjamans"
 
 type Peminjaman struct {
-	ID         int `json:"id" form:"id"`
 	Hari       int `json:"hari" form:"hari"`
 	TotalHarga int `json:"total_harga" form:"total_harga"`
 	BookID     int `json:"book_id" form:"book_id"`
@@ -18,6 +17,12 @@ func FromCore(req peminjamans.Core) Peminjaman {
 		UserID:     req.UserID,
 	}
 }
+
+// func FromCore2(req peminjamans.DetailBookPinjam) Peminjaman {
+// 	return Peminjaman{
+
+// 	}
+// }
 
 func FromCoreSlice(core []peminjamans.Core) []Peminjaman {
 	var artArray []Peminjaman

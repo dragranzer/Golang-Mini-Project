@@ -3,18 +3,17 @@ package request
 import "github.com/dragranzer/Golang-Mini-Project/features/peminjamans"
 
 type Peminjaman struct {
-	ID         int `json:"id" form:"id"`
-	Hari       int `json:"hari" form:"hari"`
-	TotalHarga int `json:"total_harga" form:"total_harga"`
-	BookID     int `json:"book_id" form:"book_id"`
-	UserID     int `json:"user_id" form:"user_id"`
+	Hari       int    `json:"hari" form:"hari"`
+	TotalHarga int    `json:"total_harga" form:"total_harga"`
+	BookName   string `json:"book_name" form:"book_name"`
+	UserName   string `json:"user_name" form:"user_name"`
 }
 
 func ToCore(req Peminjaman) peminjamans.Core {
 	return peminjamans.Core{
 		Hari:       req.Hari,
 		TotalHarga: req.TotalHarga,
-		BookID:     req.BookID,
-		UserID:     req.UserID,
+		BookName:   req.BookName,
+		UserName:   req.UserName,
 	}
 }

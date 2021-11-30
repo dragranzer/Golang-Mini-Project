@@ -1,6 +1,7 @@
 package presentation
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/dragranzer/Golang-Mini-Project/features/users"
@@ -41,5 +42,40 @@ func (ah *UsersHandler) InsertUser(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "data success di masukkan",
+	})
+}
+
+func (uH *UsersHandler) GetUser(c echo.Context) error {
+	fmt.Println("masuk handlers")
+	var name string
+	echo.PathParamsBinder(c).String("nama", &name)
+	fmt.Println(name)
+	// result := []users.Core{}
+	// result = append(result, uH.userBussiness.GetDatabyName(name))
+	result, _ := uH.userBussiness.GetDatabyName(name)
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "hope all feeling well",
+		"data":    result,
+	})
+}
+
+func (uH *UsersHandler) UpdateUserData(c echo.Context) error {
+	user := request.User{}
+	var idstring string
+	echo.PathParamsBinder(c).String("id", &idstring)
+	c.Bind(&user)
+	// id, _ := strconv.Atoi(idstring)
+	fmt.Println("id ", user.ID)
+	fmt.Println("newdata", user)
+	err := uH.userBussiness.ChangeDatabyID(user.ID, request.ToCore(user))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Data changed",
 	})
 }

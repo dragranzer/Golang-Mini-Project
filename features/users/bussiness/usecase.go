@@ -1,14 +1,19 @@
 package bussiness
 
-import "github.com/dragranzer/Golang-Mini-Project/features/users"
+import (
+	"github.com/dragranzer/Golang-Mini-Project/features/books"
+	"github.com/dragranzer/Golang-Mini-Project/features/users"
+)
 
 type usersUsecase struct {
-	userData users.Data
+	userData      users.Data
+	bookBussiness books.Bussiness
 }
 
-func NewUserBussiness(artData users.Data) users.Bussiness {
+func NewUserBussiness(usrData users.Data, bB books.Bussiness) users.Bussiness {
 	return &usersUsecase{
-		userData: artData,
+		userData:      usrData,
+		bookBussiness: bB,
 	}
 }
 
@@ -27,4 +32,20 @@ func (bu *usersUsecase) CreateData(data users.Core) (err error) {
 func (bu *usersUsecase) GetAllData() (resp []users.Core) {
 	resp = bu.userData.SelectAllData()
 	return resp
+}
+
+func (bu *usersUsecase) GetDatabyName(name string) (resp users.Core, err error) {
+	resp, _ = bu.userData.SelectDatabyName(name)
+	return resp, nil
+}
+
+func (bu *usersUsecase) GetDatabyID(id int) (resp users.Core, err error) {
+	resp, _ = bu.userData.SelectDatabyID(id)
+	return resp, nil
+}
+
+func (bu *usersUsecase) ChangeDatabyID(id int, newData users.Core) (err error) {
+	err = bu.userData.UpdateDatabyID(id, newData)
+
+	return err
 }

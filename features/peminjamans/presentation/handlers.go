@@ -21,7 +21,7 @@ func NewPeminjamanHandler(ab peminjamans.Bussiness) *PeminjamansHandler {
 }
 
 func (boh *PeminjamansHandler) GetAllPeminjaman(c echo.Context) error {
-	fmt.Println("Masuk Handlers F2")
+	// fmt.Println("Masuk Handlers F2")
 	result := boh.peminjamanBussiness.GetAllData()
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
@@ -45,6 +45,18 @@ func (ah *PeminjamansHandler) InsertPeminjaman(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message":    "success",
-		"peminjaman": data,
+		"peminjaman": response.FromCore(data),
+	})
+}
+
+func (ah *PeminjamansHandler) GetDetailPinjam(c echo.Context) error {
+	// fmt.Println("Masuk Handlers F2")
+	var judul string
+	echo.PathParamsBinder(c).String("judul", &judul)
+	result := ah.peminjamanBussiness.GetDetailBookPinjam(judul)
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "hope all feeling well",
+		"data":    result,
 	})
 }

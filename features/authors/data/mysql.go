@@ -17,13 +17,16 @@ func NewAuthorRepository(conn *gorm.DB) authors.Data {
 
 func (ar *mysqlAuthorRepository) InsertData(data authors.Core) (resp authors.Core, err error) {
 	// fmt.Println("Data ========", data)
+
 	recordData := fromCore(data)
 	// fmt.Println("Record data ======== ", recordData)
 	err = ar.Conn.Create(&recordData).Error
+
 	if err != nil {
 		return authors.Core{}, err
 	}
-	return data, nil
+
+	return toCore1(recordData), nil
 }
 
 func (ar *mysqlAuthorRepository) SelectAllData() (resp []authors.Core) {
@@ -35,4 +38,23 @@ func (ar *mysqlAuthorRepository) SelectAllData() (resp []authors.Core) {
 
 	// jangan lupa ditranlasiin ke core
 	return toCoreList(record)
+}
+
+func (br *mysqlAuthorRepository) SelectData(nama string) (resp []authors.Core, err error) {
+
+	record := []Author{}
+	// fmt.Println("nama = ", nama)
+	if err = br.Conn.Where("nama = ?", nama).Find(&record).Error; err != nil {
+		return []authors.Core{}, err
+	}
+
+	return toCoreList(record), nil
+}
+
+func (br *mysqlAuthorRepository) SelectDatabyID(id int) (resp authors.Core, err error) {
+	record := Author{}
+	if err = br.Conn.Where("id = ?", id).Find(&record).Error; err != nil {
+		return authors.Core{}, err
+	}
+	return record.toCore(), nil
 }

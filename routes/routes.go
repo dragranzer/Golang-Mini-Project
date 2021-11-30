@@ -7,28 +7,32 @@ import (
 
 func New() *echo.Echo {
 
-	_presenter_book := factory.Init()
-	_presenter_author := factory.InitAuthor()
-	_presenter_user := factory.InitUser()
-	_presenter_peminjaman := factory.InitPeminjaman()
+	_presenter := factory.Init()
 
 	e := echo.New()
 
 	// routes := e.Group("/books")
 
-	e.GET("/books/:judul", _presenter_book.BookPresentation.GetBook)
+	e.GET("/books/:judul", _presenter.BookPresentation.GetBook)
 	// e.GET("/books", _presenter_book.BookPresentation.GetBook)
-	e.GET("/books", _presenter_book.BookPresentation.GetAllBook)
-	e.POST("/books", _presenter_book.BookPresentation.InsertBook)
+	e.GET("/books", _presenter.BookPresentation.GetAllBook)
+	e.POST("/books", _presenter.BookPresentation.InsertBook)
 
-	e.GET("/authors", _presenter_author.AuthorPresentation.GetAllAuthor)
-	e.POST("/authors", _presenter_author.AuthorPresentation.InsertAuthor)
+	e.GET("/authors", _presenter.AuthorPresentation.GetAllAuthor)
+	e.POST("/authors", _presenter.AuthorPresentation.InsertAuthor)
 
-	e.GET("/users", _presenter_user.UserPresentation.GetAllUser)
-	e.POST("/users", _presenter_user.UserPresentation.InsertUser)
+	e.GET("/users", _presenter.UserPresentation.GetAllUser)
+	e.GET("/users/:nama", _presenter.UserPresentation.GetUser)
+	e.POST("/users", _presenter.UserPresentation.InsertUser)
+	e.PUT("/users/:id", _presenter.UserPresentation.UpdateUserData)
 
-	e.GET("/peminjamans", _presenter_peminjaman.PeminjamanPresentation.GetAllPeminjaman)
-	e.POST("/peminjamans", _presenter_peminjaman.PeminjamanPresentation.InsertPeminjaman)
+	e.GET("/peminjamans", _presenter.PeminjamanPresentation.GetAllPeminjaman)
+	e.POST("/peminjamans", _presenter.PeminjamanPresentation.InsertPeminjaman)
+	e.GET("/peminjamans/book/:judul", _presenter.PeminjamanPresentation.GetDetailPinjam)
+
+	e.POST("/favorite", _presenter.FavoritePresentation.InsertFavorites)
+	e.GET("/favoriteofuser/:id", _presenter.FavoritePresentation.GetFavbyUserID)
+	e.GET("/favoriteofbook/:id", _presenter.FavoritePresentation.GetFavbyBookID)
 
 	return e
 }

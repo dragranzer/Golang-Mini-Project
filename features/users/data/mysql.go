@@ -38,3 +38,34 @@ func (ar *mysqlUserRepository) SelectAllData() (resp []users.Core) {
 	// jangan lupa ditranlasiin ke core
 	return toCoreList(record)
 }
+
+func (ar *mysqlUserRepository) SelectDatabyName(name string) (resp users.Core, err error) {
+
+	record := User{}
+	if err = ar.Conn.Where("nama = ?", name).Find(&record).Error; err != nil {
+		return users.Core{}, err
+	}
+
+	return record.toCore(), nil
+}
+
+func (ar *mysqlUserRepository) SelectDatabyID(id int) (resp users.Core, err error) {
+	record := User{}
+	if err = ar.Conn.Where("id = ?", id).Find(&record).Error; err != nil {
+		return users.Core{}, err
+	}
+
+	return record.toCore(), nil
+}
+
+func (ar *mysqlUserRepository) UpdateDatabyID(id int, newData users.Core) (err error) {
+	// db.Model(&User{}).Where("active = ?", true).Update("name", "hello")
+	record := User{
+		Nama:  newData.Nama,
+		Email: newData.Email,
+	}
+	if err = ar.Conn.Model(&record).Where("id = ?", id).Updates(User{Nama: record.Nama, Email: newData.Email}).Error; err != nil {
+		return err
+	}
+	return
+}

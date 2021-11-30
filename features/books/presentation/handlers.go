@@ -33,11 +33,11 @@ func (boh *BooksHandler) GetAllBook(c echo.Context) error {
 func (ah *BooksHandler) InsertBook(c echo.Context) error {
 	// fmt.Println("Masuk Handlers F2")
 	book := request.Book{}
-	fmt.Println("book0 = ", book)
+	// fmt.Println("book0 = ", book)
 	c.Bind(&book)
-	fmt.Println("book = ", book)
-	fmt.Println("book presentation ========== ", book)
-	data, err := ah.bookBussiness.CreateData(request.ToCore(book))
+	// fmt.Println("book = ", book)
+	// fmt.Println("book presentation ========== ", book)
+	_, err := ah.bookBussiness.CreateData(request.ToCore(book))
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -46,16 +46,15 @@ func (ah *BooksHandler) InsertBook(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success",
-		"book":    data,
+		"message": "success melakukan insert",
 	})
 }
 
 func (boh *BooksHandler) GetBook(c echo.Context) error {
-	fmt.Println("masuk handlers")
+	// fmt.Println("masuk handlers")
 	var judul string
 	echo.PathParamsBinder(c).String("judul", &judul)
-	fmt.Println("judul = ", judul)
+	// fmt.Println("judul = ", judul)
 	result, err := boh.bookBussiness.GetDetailData(judul)
 
 	if err != nil {

@@ -13,6 +13,7 @@ type Book struct {
 	Like        int        `json:"like" form:"like"`
 	Harga       int        `json:"harga" form:"harga"`
 	Kategoris   []Kategori `json:"kategori" form:"kategori"`
+	Authors     []Author
 }
 
 type Kategori struct {
@@ -20,13 +21,26 @@ type Kategori struct {
 	Nama string `json:"nama" form:"nama"`
 }
 
+type Author struct {
+	ID   int    `json:"id" form:"id"`
+	Nama string `json:"nama" form:"nama"`
+}
+
 func FromCore(req books.Core) Book {
+	listAuthor := []Author{}
+	for _, value := range req.Authors {
+		listAuthor = append(listAuthor, Author{
+			ID:   value.ID,
+			Nama: value.Nama,
+		})
+	}
 	return Book{
 		Judul:       req.Judul,
 		Tersedia:    req.Tersedia,
 		PublishedAt: req.PublishedAt,
 		Like:        req.Like,
 		Harga:       req.Harga,
+		Authors:     listAuthor,
 	}
 }
 

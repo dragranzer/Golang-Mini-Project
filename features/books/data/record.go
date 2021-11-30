@@ -14,7 +14,7 @@ type Book struct {
 	Like        int        `json:"like" form:"like"`
 	Harga       int        `json:"harga" form:"harga"`
 	Kategoris   []Kategori `json:"kategori" form:"kategori" gorm:"foreigKey:BookID;references:ID"`
-	Authors     []Author   `json:"author" form:"author" gorm:"many2many:detail_book;"`
+	Authors     []Author   `json:"author" form:"author" gorm:"many2many:detail_books;"`
 	CreatedAt   time.Time  `json:"created_at" form:"created_at"`
 	UpdatedAt   time.Time  `json:"updated_at" form:"updated_at"`
 }
@@ -32,7 +32,7 @@ type Author struct {
 	Nama      string    `json:"nama" form:"nama"`
 	CreatedAt time.Time `json:"created_at" form:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" form:"updated_at"`
-	Books     []Book    `json:"book" form:"book" gorm:"many2many:detail_book;"`
+	Books     []Book    `json:"book" form:"book" gorm:"many2many:detail_books;"`
 }
 
 //DTO
@@ -71,9 +71,10 @@ func fromCore(core books.Core) Book {
 	}
 }
 
-func toCore(book Book) books.Core {
+func toCore1(book Book) books.Core {
 
 	return books.Core{
+		ID:          book.ID,
 		Judul:       book.Judul,
 		Tersedia:    book.Tersedia,
 		PublishedAt: book.PublishedAt,
