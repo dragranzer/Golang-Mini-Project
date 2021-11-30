@@ -18,6 +18,12 @@ func FromCore(req peminjamans.Core) Peminjaman {
 	}
 }
 
+// func FromCore2(req peminjamans.DetailBookPinjam) Peminjaman {
+// 	return Peminjaman{
+
+// 	}
+// }
+
 func FromCoreSlice(core []peminjamans.Core) []Peminjaman {
 	var artArray []Peminjaman
 	for key := range core {

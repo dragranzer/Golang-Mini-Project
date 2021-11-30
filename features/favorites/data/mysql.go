@@ -29,3 +29,12 @@ func (ar *mysqlFavoriteRepository) SelectDatabyUserID(id int) (resp []favorites.
 	}
 	return toCoreList(record), nil
 }
+
+func (ar *mysqlFavoriteRepository) SelectDatabyBookID(id int) (resp []favorites.Core, err error) {
+
+	record := []Favorite{}
+	if err = ar.Conn.Where("book_id = ?", id).Find(&record).Error; err != nil {
+		return []favorites.Core{}, err
+	}
+	return toCoreList(record), nil
+}

@@ -31,7 +31,8 @@ func New() *echo.Echo {
 	e.GET("/peminjamans/book/:judul", _presenter.PeminjamanPresentation.GetDetailPinjam)
 
 	e.POST("/favorite", _presenter.FavoritePresentation.InsertFavorites)
-	e.GET("/favorite/:id", _presenter.FavoritePresentation.GetFavbyUserID)
+	e.GET("/favoriteofuser/:id", _presenter.FavoritePresentation.GetFavbyUserID)
+	e.GET("/favoriteofbook/:id", _presenter.FavoritePresentation.GetFavbyBookID)
 
 	return e
 }

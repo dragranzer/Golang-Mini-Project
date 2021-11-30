@@ -39,3 +39,19 @@ func (bu *favoritesUsecase) GetDatabyUserID(id int) (resp favorites.Core, err er
 
 	return favDetail, nil
 }
+
+func (bu *favoritesUsecase) GetDatabyBookID(id int) (resp favorites.Core, err error) {
+	listFav, _ := bu.favoriteData.SelectDatabyBookID(id)
+	listUserName := []string{}
+	for _, value := range listFav {
+		tempUser, _ := bu.userBussiness.GetDatabyID(value.UserID)
+		// fmt.Println(tempUser)
+		listUserName = append(listUserName, tempUser.Nama)
+	}
+	favDetail := favorites.Core{
+		BookID:   id,
+		UserName: listUserName,
+	}
+
+	return favDetail, nil
+}
