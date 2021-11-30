@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/dragranzer/Golang-Mini-Project/factory"
+	"github.com/dragranzer/Golang-Mini-Project/middleware"
 	"github.com/labstack/echo/v4"
 )
 
@@ -10,7 +11,7 @@ func New() *echo.Echo {
 	_presenter := factory.Init()
 
 	e := echo.New()
-
+	middleware.LogMidd(e)
 	// routes := e.Group("/books")
 
 	e.GET("/books/:judul", _presenter.BookPresentation.GetBook)
