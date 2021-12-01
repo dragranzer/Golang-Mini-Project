@@ -79,3 +79,23 @@ func (uH *UsersHandler) UpdateUserData(c echo.Context) error {
 		"message": "Data changed",
 	})
 }
+
+func (uH *UsersHandler) LoginUser(c echo.Context) error {
+	user := request.User{}
+	c.Bind(&user)
+	resp, isAuth, err := uH.userBussiness.Login(user.Email, user.Password)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	if !isAuth {
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"message": "Unauthorized",
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Data changed",
+		"data":    resp,
+	})
+}
