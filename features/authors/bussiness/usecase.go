@@ -28,8 +28,8 @@ func (bu *authorsUsecase) GetAllData() (resp []authors.Core) {
 	return
 }
 
-func (bu *authorsUsecase) GetDetailData(judul string) (resp []authors.Core, err error) {
-	resp, err = bu.authorData.SelectData(judul)
+func (bu *authorsUsecase) GetDetailData(nama string) (resp []authors.Core, err error) {
+	resp, err = bu.authorData.SelectData(nama)
 	// fmt.Println("get detail data")
 	if err != nil {
 		return []authors.Core{}, err
