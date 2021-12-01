@@ -65,6 +65,9 @@ func (bu *usersUsecase) Login(email string, pass string) (resp users.UserResp, i
 		return resp, false, nil
 	}
 	token, err := middleware.CreateToken(cekUser.ID)
+	if err != nil {
+		return resp, false, err
+	}
 	fmt.Println("token2", token)
 	fmt.Println("ispass? ", encryptionErr)
 	resp = users.UserResp{

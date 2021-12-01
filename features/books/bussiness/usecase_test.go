@@ -1,17 +1,15 @@
 package bussiness_test
 
 import (
-	"fmt"
 	"os"
 	"testing"
 	"time"
 
 	"github.com/dragranzer/Golang-Mini-Project/features/authors"
+	b_authors_mock "github.com/dragranzer/Golang-Mini-Project/features/authors/mocks"
 	"github.com/dragranzer/Golang-Mini-Project/features/books"
 	b_books "github.com/dragranzer/Golang-Mini-Project/features/books/bussiness"
 	b_books_mock "github.com/dragranzer/Golang-Mini-Project/features/books/mocks"
-	"github.com/dragranzer/Golang-Mini-Project/features/detail_book"
-	b_detBook_buss "github.com/dragranzer/Golang-Mini-Project/features/detail_book/bussiness"
 	b_detBook_mock "github.com/dragranzer/Golang-Mini-Project/features/detail_book/mocks"
 	"github.com/stretchr/testify/assert"
 )
@@ -20,16 +18,18 @@ var (
 	bookData       b_books_mock.Data
 	detailBookData b_detBook_mock.Data
 	bookUsecase    books.Bussiness
-	authorsUsecase authors.Bussiness
-	detBookUsecase detail_book.Bussiness
+	authorsUsecase b_authors_mock.Bussiness
+	authorData     b_authors_mock.Data
+	detBookUsecase b_detBook_mock.Bussiness
 	Authors        []books.AuthorCore
+	authorValues   authors.Core
 
 	bookValues []books.Core
 )
 
 func TestMain(m *testing.M) {
-	detBookUsecase = b_detBook_buss.NewDetailBookBussiness(&detailBookData)
-	bookUsecase = b_books.NewBookBussiness(&bookData, authorsUsecase, detBookUsecase)
+
+	bookUsecase = b_books.NewBookBussiness(&bookData, &authorsUsecase, &detBookUsecase)
 
 	bookValues = []books.Core{
 		{
@@ -47,6 +47,10 @@ func TestMain(m *testing.M) {
 		{Nama: "Chuuya"},
 	}
 
+	authorValues = authors.Core{
+		ID:   1,
+		Nama: "Nakahara",
+	}
 	os.Exit(m.Run())
 }
 
@@ -109,16 +113,22 @@ func TestGetDetailData(t *testing.T) {
 	t.Run("valid - Get Detail Data", func(t *testing.T) {
 		bookData.On("SelectData", bookValues[0].Judul).Return(bookValues, nil).Once()
 		arr := []int{1, 2}
+
+		detBookUsecase.On("GetAuthorbyBookID", bookValues[0].ID).Return(arr).Once()
 		detailBookData.On("SelectAuthorbyBookID", bookValues[0].ID).Return(arr).Once()
-		resp, err := bookUsecase.GetDetailData(bookValues[0].Judul)
 
-		fmt.Println("error testing ", err)
+		authorsUsecase.On("GetDetailDatabyID", authorValues.ID).Return(authorValues, nil).Once()
+		authorData.On("SelectDatabyID", authorValues.ID).Return(authorValues, nil).Once()
 
-		listAuthorID := detBookUsecase.GetAuthorbyBookID(bookValues[0].ID)
-		fmt.Println("list author ===== ", listAuthorID)
+		resp, _ := bookUsecase.GetDetailData(bookValues[0].Judul)
+
+		// fmt.Println("error testing ", err)
+
+		// listAuthorID := detBookUsecase.GetAuthorbyBookID(bookValues[0].ID)
+		// fmt.Println("list author ===== ", listAuthorID)
 
 		// assert.NotEqual(t, len(resp), 0)
-		assert.Equal(t, listAuthorID, arr)
+		// assert.Equal(t, listAuthorID, arr)
 		assert.Equal(t, resp, bookValues[0])
 	})
 }

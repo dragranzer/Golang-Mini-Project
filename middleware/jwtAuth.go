@@ -6,14 +6,14 @@ import (
 
 	"github.com/dragranzer/Golang-Mini-Project/constant"
 
-	jwt "github.com/dgrijalva/jwt-go"
+	jwt "github.com/golang-jwt/jwt"
 )
 
 func CreateToken(userId int) (string, error) {
 	claims := jwt.MapClaims{
 		"userid": int64(userId),
 		"role":   "admin",
-		"exp":    time.Now().Add(time.Hour * 1).Unix,
+		"exp":    time.Now().Add(time.Hour * 1).Unix(),
 	}
 	// claims["userId"] = userId
 	// claims["exp"] = time.Now().Add(time.Hour * 1).Unix
