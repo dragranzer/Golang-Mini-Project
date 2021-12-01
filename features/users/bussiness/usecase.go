@@ -74,5 +74,5 @@ func (bu *usersUsecase) Login(email string, pass string) (resp users.UserResp, i
 		Token: token,
 	}
 	fmt.Println(resp)
-	return
+	return resp, encryptionErr, err
 }

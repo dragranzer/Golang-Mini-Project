@@ -13,7 +13,7 @@ func CreateToken(userId int) (string, error) {
 	claims := jwt.MapClaims{
 		"userid": userId,
 		"role":   "admin",
-		"exp":    time.Now().Add(time.Hour * 1).Unix,
+		"exp":    time.Now().Add(time.Hour * 1).Unix(),
 	}
 	// claims["userId"] = userId
 	// claims["exp"] = time.Now().Add(time.Hour * 1).Unix
