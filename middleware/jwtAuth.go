@@ -11,7 +11,7 @@ import (
 
 func CreateToken(userId int) (string, error) {
 	claims := jwt.MapClaims{
-		"userid": userId,
+		"userid": int64(userId),
 		"role":   "admin",
 		"exp":    time.Now().Add(time.Hour * 1).Unix,
 	}
@@ -23,5 +23,6 @@ func CreateToken(userId int) (string, error) {
 	// fmt.Println("token kali ", (token.SignedString([]byte(constant.SECRET_JWT))))
 	token, err := tokenWithClaims.SignedString([]byte(constant.SECRET_JWT))
 	fmt.Println("token ", token)
+	fmt.Println("err === ", err)
 	return token, err
 }
