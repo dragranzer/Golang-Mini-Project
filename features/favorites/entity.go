@@ -11,6 +11,7 @@ type Bussiness interface {
 	CreateData(data Core) (err error)
 	GetDatabyUserID(id int) (resp Core, err error)
 	GetDatabyBookID(id int) (resp Core, err error)
+	ClearFavbyBookID(id int) (err error)
 	// continue the function abtraction
 }
 
@@ -18,4 +19,5 @@ type Data interface {
 	InsertData(data Core) (err error)
 	SelectDatabyUserID(id int) (resp []Core, err error)
 	SelectDatabyBookID(id int) (resp []Core, err error)
+	DeleteFavbyBookID(id int) (err error)
 }

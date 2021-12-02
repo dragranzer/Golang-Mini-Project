@@ -52,3 +52,8 @@ func (bu *reviewsUsecase) GetDatabyBookID(id int) (resp reviews.Core, err error)
 
 	return komentarOfBook, nil
 }
+
+func (bu *reviewsUsecase) ClearDatabyBookID(id int) (err error) {
+	err = bu.reviewData.DeleteDatabyBookID(id)
+	return
+}

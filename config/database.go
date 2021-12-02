@@ -10,7 +10,7 @@ var DB *gorm.DB
 func InitDB() {
 
 	var err error
-	db, err := gorm.Open(mysql.Open("root:@/minpro_be?parseTime=true"), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open("root:@tcp(host.docker.internal:3306)/minpro_be?parseTime=true"), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

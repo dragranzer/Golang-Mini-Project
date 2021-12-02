@@ -50,3 +50,19 @@ func (ah *ReviewsHandler) GetFavbyBookID(c echo.Context) error {
 		"data":    response.FromCore(resp),
 	})
 }
+
+func (ah *ReviewsHandler) DeletebyBookID(c echo.Context) error {
+	fav := request.Review{}
+	c.Bind(&fav)
+	// fmt.Println(fav.BookID)
+	err := ah.reviewBussiness.ClearDatabyBookID(fav.BookID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Delete data berhasil",
+	})
+}

@@ -29,3 +29,9 @@ func (ar *mysqlReviewRepository) SelectDatabyBookID(id int) (resp []reviews.Core
 	}
 	return toCoreList(record), nil
 }
+
+func (ar *mysqlReviewRepository) DeleteDatabyBookID(id int) (err error) {
+	record := Review{}
+	err = ar.Conn.Where("book_id = ?", id).Delete(&record).Error
+	return
+}
