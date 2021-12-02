@@ -41,5 +41,8 @@ func New() *echo.Echo {
 	eJWT.GET("/favoriteofuser/:id", _presenter.FavoritePresentation.GetFavbyUserID)
 	eJWT.GET("/favoriteofbook/:id", _presenter.FavoritePresentation.GetFavbyBookID)
 
+	e.GET("/reviews", _presenter.ReviewPresentation.GetFavbyBookID)
+	e.POST("/reviews", _presenter.ReviewPresentation.InsertReviews)
+
 	return e
 }
