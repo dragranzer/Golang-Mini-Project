@@ -1,9 +1,11 @@
 package routes
 
 import (
+	"github.com/dragranzer/Golang-Mini-Project/constant"
 	"github.com/dragranzer/Golang-Mini-Project/factory"
 	"github.com/dragranzer/Golang-Mini-Project/middleware"
 	"github.com/labstack/echo/v4"
+	mid "github.com/labstack/echo/v4/middleware"
 )
 
 func New() *echo.Echo {
@@ -22,19 +24,22 @@ func New() *echo.Echo {
 	e.GET("/authors", _presenter.AuthorPresentation.GetAllAuthor)
 	e.POST("/authors", _presenter.AuthorPresentation.InsertAuthor)
 
-	e.GET("/users", _presenter.UserPresentation.GetAllUser)
+	eJWT := e.Group("")
+	eJWT.Use(mid.JWT([]byte(constant.SECRET_JWT)))
+
+	eJWT.GET("/users", _presenter.UserPresentation.GetAllUser)
 	e.GET("/users/:nama", _presenter.UserPresentation.GetUser)
 	e.POST("/users", _presenter.UserPresentation.InsertUser)
 	e.PUT("/users/:id", _presenter.UserPresentation.UpdateUserData)
 	e.GET("/login", _presenter.UserPresentation.LoginUser)
 
-	e.GET("/peminjamans", _presenter.PeminjamanPresentation.GetAllPeminjaman)
-	e.POST("/peminjamans", _presenter.PeminjamanPresentation.InsertPeminjaman)
-	e.GET("/peminjamans/book/:judul", _presenter.PeminjamanPresentation.GetDetailPinjam)
+	eJWT.GET("/peminjamans", _presenter.PeminjamanPresentation.GetAllPeminjaman)
+	eJWT.POST("/peminjamans", _presenter.PeminjamanPresentation.InsertPeminjaman)
+	eJWT.GET("/peminjamans/book/:judul", _presenter.PeminjamanPresentation.GetDetailPinjam)
 
-	e.POST("/favorite", _presenter.FavoritePresentation.InsertFavorites)
-	e.GET("/favoriteofuser/:id", _presenter.FavoritePresentation.GetFavbyUserID)
-	e.GET("/favoriteofbook/:id", _presenter.FavoritePresentation.GetFavbyBookID)
+	eJWT.POST("/favorite", _presenter.FavoritePresentation.InsertFavorites)
+	eJWT.GET("/favoriteofuser/:id", _presenter.FavoritePresentation.GetFavbyUserID)
+	eJWT.GET("/favoriteofbook/:id", _presenter.FavoritePresentation.GetFavbyBookID)
 
 	return e
 }
