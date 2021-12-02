@@ -9,15 +9,15 @@ import (
 	jwt "github.com/golang-jwt/jwt"
 )
 
-func CreateToken(userId int) (string, error) {
+func CreateToken(userId int, name string) (string, error) {
 	claims := jwt.MapClaims{
-		"userid": int64(userId),
-		"role":   "admin",
+		"userid": userId,
+		"name":   name,
 		"exp":    time.Now().Add(time.Hour * 1).Unix(),
 	}
 	// claims["userId"] = userId
 	// claims["exp"] = time.Now().Add(time.Hour * 1).Unix
-	fmt.Println(claims)
+	// fmt.Println(claims)
 	tokenWithClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// fmt.Println("token ", token)
 	// fmt.Println("token kali ", (token.SignedString([]byte(constant.SECRET_JWT))))

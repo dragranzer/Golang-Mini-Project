@@ -1,8 +1,6 @@
 package bussiness
 
 import (
-	"fmt"
-
 	"github.com/dragranzer/Golang-Mini-Project/features/books"
 	"github.com/dragranzer/Golang-Mini-Project/features/users"
 	"github.com/dragranzer/Golang-Mini-Project/middleware"
@@ -64,18 +62,21 @@ func (bu *usersUsecase) Login(email string, pass string) (resp users.UserResp, i
 	if !encryptionErr {
 		return resp, false, nil
 	}
-	token, err := middleware.CreateToken(cekUser.ID)
+
+	token, err := middleware.CreateToken(cekUser.ID, cekUser.Nama)
+	// fmt.Println("token2", token)
+	// fmt.Println("ispass? ", encryptionErr)
+
 	if err != nil {
 		return resp, false, err
 	}
-	fmt.Println("token2", token)
-	fmt.Println("ispass? ", encryptionErr)
+
 	resp = users.UserResp{
 		ID:    cekUser.ID,
 		Nama:  cekUser.Nama,
 		Email: cekUser.Email,
 		Token: token,
 	}
-	fmt.Println(resp)
-	return
+	// fmt.Println(resp)
+	return resp, encryptionErr, err
 }

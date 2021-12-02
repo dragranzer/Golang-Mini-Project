@@ -95,7 +95,7 @@ func (uH *UsersHandler) LoginUser(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Data changed",
+		"message": "Selamat email dan pass mu benar",
 		"data":    resp,
 	})
 }
