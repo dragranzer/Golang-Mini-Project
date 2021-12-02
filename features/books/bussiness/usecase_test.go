@@ -138,6 +138,15 @@ func TestGetAllData(t *testing.T) {
 		assert.Equal(t, resp, bookValues2[0])
 	})
 
+	t.Run("valid - Clear Data by BookID", func(t *testing.T) {
+		bookData.On("DeleteDatabyBookID", bookValues[0].ID).Return(nil).Once()
+		// bookData.On("SelectData", bookValues[0].Judul).Return(bookValues, nil).Once()
+		err := bookUsecase.ClearDatabyBookID(bookValues[0].ID)
+
+		// assert.NotEqual(t, len(resp), 0)
+		assert.Equal(t, err, nil)
+	})
+
 }
 
 // func TestCreateData(t *testing.T) {

@@ -66,3 +66,19 @@ func (ah *FavoritesHandler) GetFavbyBookID(c echo.Context) error {
 		"data":    response.FromCoreUser(resp),
 	})
 }
+
+func (ah *FavoritesHandler) DeteleFavbyBookID(c echo.Context) error {
+	fav := request.Favorite{}
+	c.Bind(&fav)
+	// fmt.Println(fav.BookID)
+	err := ah.favoriteBussiness.ClearFavbyBookID(fav.BookID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Data berhasil di remove",
+	})
+}

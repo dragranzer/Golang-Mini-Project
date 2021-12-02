@@ -33,6 +33,20 @@ func (_m *Bussiness) ChangeTersediabyName(name string) (books.Core, error) {
 	return r0, r1
 }
 
+// ClearDatabyBookID provides a mock function with given fields: id
+func (_m *Bussiness) ClearDatabyBookID(id int) error {
+	ret := _m.Called(id)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(int) error); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // CreateData provides a mock function with given fields: data
 func (_m *Bussiness) CreateData(data books.Core) (books.Core, error) {
 	ret := _m.Called(data)

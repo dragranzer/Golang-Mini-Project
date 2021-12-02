@@ -12,6 +12,20 @@ type Bussiness struct {
 	mock.Mock
 }
 
+// ClearFavbyBookID provides a mock function with given fields: id
+func (_m *Bussiness) ClearFavbyBookID(id int) error {
+	ret := _m.Called(id)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(int) error); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // CreateData provides a mock function with given fields: data
 func (_m *Bussiness) CreateData(data favorites.Core) error {
 	ret := _m.Called(data)

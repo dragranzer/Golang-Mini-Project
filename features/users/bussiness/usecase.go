@@ -1,10 +1,13 @@
 package bussiness
 
 import (
+	"time"
+
+	"github.com/dragranzer/Golang-Mini-Project/constant"
 	"github.com/dragranzer/Golang-Mini-Project/features/books"
 	"github.com/dragranzer/Golang-Mini-Project/features/users"
-	"github.com/dragranzer/Golang-Mini-Project/middleware"
-	"github.com/dragranzer/Golang-Mini-Project/migrate"
+	"github.com/golang-jwt/jwt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type usersUsecase struct {
@@ -57,13 +60,22 @@ func (bu *usersUsecase) Login(email string, pass string) (resp users.UserResp, i
 	// isAuth, user, _ := bu.userData.CheckEmailPass(email, hashpass)
 
 	cekUser, _ := bu.userData.SelectDatabyEmail(email)
-	encryptionErr := migrate.CheckPasswordHash(pass, cekUser.Password)
+	err = bcrypt.CompareHashAndPassword([]byte(cekUser.Password), []byte(pass))
+	encryptionErr := (err == nil)
 
-	if !encryptionErr {
-		return resp, false, nil
+	// if !encryptionErr {
+	// 	return resp, false, nil
+	// }
+
+	// token, err := middleware.CreateToken(cekUser.ID, cekUser.Nama)
+
+	claims := jwt.MapClaims{
+		"userid": cekUser.ID,
+		"name":   cekUser.Nama,
+		"exp":    time.Now().Add(time.Hour * 1).Unix(),
 	}
-
-	token, err := middleware.CreateToken(cekUser.ID, cekUser.Nama)
+	tokenWithClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token, err := tokenWithClaims.SignedString([]byte(constant.SECRET_JWT))
 	// fmt.Println("token2", token)
 	// fmt.Println("ispass? ", encryptionErr)
 

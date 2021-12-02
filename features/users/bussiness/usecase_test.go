@@ -89,4 +89,14 @@ func TestCoverage(t *testing.T) {
 		// assert.NotEqual(t, len(resp), 0)
 		assert.Equal(t, err, nil)
 	})
+
+	t.Run("valid - Login", func(t *testing.T) {
+
+		userData.On("SelectDatabyEmail", userValues[0].Email).Return(userValues[0], nil).Once()
+		newData := users.UserResp{}
+		resp, _, _ := userUsecase.Login(userValues[0].Email, userValues[0].Password)
+
+		// assert.NotEqual(t, len(resp), 0)
+		assert.NotEqual(t, resp, newData)
+	})
 }

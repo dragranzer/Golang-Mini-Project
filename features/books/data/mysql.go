@@ -71,3 +71,9 @@ func (br *mysqlBookRepository) SelectbyID(id int) (resp books.Core, err error) {
 	resp = record.toCore()
 	return resp, nil
 }
+
+func (ar *mysqlBookRepository) DeleteDatabyBookID(id int) (err error) {
+	record := Book{}
+	err = ar.Conn.Where("id = ?", id).Delete(&record).Error
+	return
+}

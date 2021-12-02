@@ -76,4 +76,12 @@ func TestCoverage(t *testing.T) {
 		// assert.NotEqual(t, len(resp), 0)
 		assert.NotEqual(t, resp, reviewValues[0])
 	})
+
+	t.Run("valid - Clear Data by BookID", func(t *testing.T) {
+		reviewData.On("DeleteDatabyBookID", bookValues[0].ID).Return(nil).Once()
+		resp := reviewUsecase.ClearDatabyBookID(bookValues[0].ID)
+
+		// assert.NotEqual(t, len(resp), 0)
+		assert.Equal(t, resp, nil)
+	})
 }

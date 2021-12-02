@@ -15,10 +15,12 @@ type UserRev struct {
 type Bussiness interface {
 	CreateData(data Core) (err error)
 	GetDatabyBookID(id int) (resp Core, err error)
+	ClearDatabyBookID(id int) (err error)
 	// continue the function abtraction
 }
 
 type Data interface {
 	InsertData(data Core) (err error)
 	SelectDatabyBookID(id int) (resp []Core, err error)
+	DeleteDatabyBookID(id int) (err error)
 }

@@ -84,4 +84,12 @@ func TestCoverage(t *testing.T) {
 		// assert.NotEqual(t, len(resp), 0)
 		assert.NotEqual(t, resp, bookValues[0])
 	})
+
+	t.Run("valid - Clear Fav by BookID", func(t *testing.T) {
+		favoriteData.On("DeleteFavbyBookID", bookValues[0].ID).Return(nil).Once()
+		resp := favoriteUsecase.ClearFavbyBookID(bookValues[0].ID)
+
+		// assert.NotEqual(t, len(resp), 0)
+		assert.Equal(t, resp, nil)
+	})
 }

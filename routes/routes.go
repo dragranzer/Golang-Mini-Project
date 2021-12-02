@@ -38,11 +38,13 @@ func New() *echo.Echo {
 	eJWT.GET("/peminjamans/book/:judul", _presenter.PeminjamanPresentation.GetDetailPinjam)
 
 	eJWT.POST("/favorite", _presenter.FavoritePresentation.InsertFavorites)
+	eJWT.DELETE("/favorite", _presenter.FavoritePresentation.DeteleFavbyBookID)
 	eJWT.GET("/favoriteofuser/:id", _presenter.FavoritePresentation.GetFavbyUserID)
 	eJWT.GET("/favoriteofbook/:id", _presenter.FavoritePresentation.GetFavbyBookID)
 
 	e.GET("/reviews", _presenter.ReviewPresentation.GetFavbyBookID)
 	e.POST("/reviews", _presenter.ReviewPresentation.InsertReviews)
+	e.DELETE("/reviews", _presenter.ReviewPresentation.DeletebyBookID)
 
 	return e
 }

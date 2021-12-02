@@ -38,3 +38,9 @@ func (ar *mysqlFavoriteRepository) SelectDatabyBookID(id int) (resp []favorites.
 	}
 	return toCoreList(record), nil
 }
+
+func (ar *mysqlFavoriteRepository) DeleteFavbyBookID(id int) (err error) {
+	record := Favorite{}
+	err = ar.Conn.Where("book_id = ?", id).Delete(&record).Error
+	return
+}

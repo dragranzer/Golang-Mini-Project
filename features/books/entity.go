@@ -44,6 +44,7 @@ type Bussiness interface {
 	GetDetailData(name string) (resp []Core, err error)
 	GetDetailDatabyID(id int) (resp Core, err error)
 	ChangeTersediabyName(name string) (resp Core, err error)
+	ClearDatabyBookID(id int) (err error)
 	// continue the function abtraction
 }
 
@@ -53,4 +54,5 @@ type Data interface {
 	SelectData(name string) (resp []Core, err error)
 	UpdateTersediabyName(name string) (resp Core, err error)
 	SelectbyID(id int) (resp Core, err error)
+	DeleteDatabyBookID(id int) (err error)
 }

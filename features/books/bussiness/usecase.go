@@ -14,7 +14,8 @@ type booksUsecase struct {
 	detBookBussiness detail_book.Bussiness
 }
 
-func NewBookBussiness(bookData books.Data, ab authors.Bussiness, dBus detail_book.Bussiness) books.Bussiness {
+func NewBookBussiness(bookData books.Data, ab authors.Bussiness,
+	dBus detail_book.Bussiness) books.Bussiness {
 	return &booksUsecase{
 		bookData:         bookData,
 		authorBussiness:  ab,
@@ -122,5 +123,11 @@ func (bu *booksUsecase) GetDetailDatabyID(id int) (resp books.Core, err error) {
 	if err != nil {
 		return books.Core{}, err
 	}
+	return
+}
+
+func (bu *booksUsecase) ClearDatabyBookID(id int) (err error) {
+
+	err = bu.bookData.DeleteDatabyBookID(id)
 	return
 }

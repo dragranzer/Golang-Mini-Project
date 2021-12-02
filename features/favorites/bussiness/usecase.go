@@ -55,3 +55,8 @@ func (bu *favoritesUsecase) GetDatabyBookID(id int) (resp favorites.Core, err er
 
 	return favDetail, nil
 }
+
+func (bu *favoritesUsecase) ClearFavbyBookID(id int) (err error) {
+	err = bu.favoriteData.DeleteFavbyBookID(id)
+	return
+}
