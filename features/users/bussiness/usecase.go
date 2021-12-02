@@ -62,9 +62,15 @@ func (bu *usersUsecase) Login(email string, pass string) (resp users.UserResp, i
 	if !encryptionErr {
 		return resp, false, nil
 	}
+
 	token, err := middleware.CreateToken(cekUser.ID, cekUser.Nama)
 	// fmt.Println("token2", token)
 	// fmt.Println("ispass? ", encryptionErr)
+
+	if err != nil {
+		return resp, false, err
+	}
+
 	resp = users.UserResp{
 		ID:    cekUser.ID,
 		Nama:  cekUser.Nama,

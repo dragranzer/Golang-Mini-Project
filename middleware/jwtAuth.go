@@ -6,7 +6,7 @@ import (
 
 	"github.com/dragranzer/Golang-Mini-Project/constant"
 
-	jwt "github.com/dgrijalva/jwt-go"
+	jwt "github.com/golang-jwt/jwt"
 )
 
 func CreateToken(userId int, name string) (string, error) {
@@ -23,5 +23,6 @@ func CreateToken(userId int, name string) (string, error) {
 	// fmt.Println("token kali ", (token.SignedString([]byte(constant.SECRET_JWT))))
 	token, err := tokenWithClaims.SignedString([]byte(constant.SECRET_JWT))
 	fmt.Println("token ", token)
+	fmt.Println("err === ", err)
 	return token, err
 }
