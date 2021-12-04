@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/dragranzer/Golang-Mini-Project/config"
 	"github.com/dragranzer/Golang-Mini-Project/migrate"
@@ -14,7 +15,11 @@ func main() {
 	migrate.AutoMigrate()
 
 	e := routes.New()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
-	e.Start(":1234")
+	e.Start(":" + port)
 	fmt.Println("Server started in port :1234")
 }
